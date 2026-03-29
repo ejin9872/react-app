@@ -1,73 +1,59 @@
-# React To-Do App
+# Restaurant Picks
 
-A modern, interactive to-do list application built with React and TypeScript. This app helps users organize and manage their daily tasks efficiently.
+A curated restaurant discovery and tracking app built with React 19 and TypeScript. Browse handpicked dining spots, save your favorites, mark places you've visited, and find your next meal with powerful search and filters.
 
 ## Features
 
-### Core Functionality
-- ✅ **Add Tasks**: Create new to-do items with descriptive text
-- ✏️ **Edit Tasks**: Modify existing tasks inline
-- ❌ **Delete Tasks**: Remove completed or unwanted tasks
-- ✔️ **Mark Complete**: Toggle tasks between completed and pending states
-- 📋 **Task List**: View all tasks in an organized list format
+### Browse & Discover
+- 🍽️ **Restaurant Cards**: Browse a responsive grid of restaurants showing images, cuisine type, price range, star ratings, descriptions, and addresses
+- 🔎 **Detail Modal**: Click any card to open a detailed view with the full description, a personalized recommendation, operating hours, Yelp-style reviews, and an embedded Google Map with directions link
+- 📊 **Results Count**: See how many restaurants match your current filters
 
-### User Experience
-- 🎨 **Clean Interface**: Intuitive and responsive design
-- 📱 **Mobile Friendly**: Works seamlessly on desktop and mobile devices
-- 💾 **Local Storage**: Tasks persist between browser sessions
-- 🔍 **Filter Options**: View all tasks, only active tasks, or completed tasks
-- 📊 **Task Counter**: See the number of remaining tasks at a glance
+### Organize & Track
+- ❤️ **Favorites**: Mark restaurants as favorites with an animated heart toggle
+- 📌 **Visited / To Try**: Track which restaurants you've been to and which are still on your list
+- ✕ **Remove**: Delete restaurants you're no longer interested in
+- 🔢 **Progress Footer**: See how many restaurants you still have left to try
 
-### What a To-Do App Should Do
-A well-designed to-do application should help users:
-1. **Capture Tasks Quickly**: Allow rapid entry of new tasks without friction
-2. **Organize Priorities**: Help users see what needs to be done and when
-3. **Track Progress**: Provide visual feedback on task completion
-4. **Reduce Mental Load**: Serve as an external memory system for tasks
-5. **Maintain Focus**: Help users concentrate on current priorities
-6. **Provide Satisfaction**: Give a sense of accomplishment when tasks are completed
+### Search & Filter
+- 🔍 **Search**: Find restaurants by name, cuisine, or address
+- 🏷️ **Tag Filters**: Filter by Favorites, Visited, or To Try
+- 🍕 **Cuisine Filter**: Multi-select by cuisine type (Japanese, Italian, Mexican, etc.)
+- 📍 **Location Filter**: Narrow results by city/area
+- ⭐ **Rating Filter**: Set a minimum star rating (3+, 3.5+, 4+, 4.5+)
+- 💰 **Price Filter**: Multi-select by price range (`$`, `$$`, `$$$`, `$$$$`)
+- 🧹 **Clear All**: Reset all active filters with one click
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Add Restaurants
+- ➕ **Add Form**: Add your own restaurants with name, cuisine, address, rating, price range, and description
+
+### Persistence & UX
+- 💾 **Local Storage**: All data (including favorites and visited state) persists across browser sessions
+- 📱 **Responsive Design**: Fully responsive layout for desktop and mobile
+- ✨ **Animations**: Smooth heart and checkmark animations on favorite/visited toggles
+- 🗺️ **Google Maps Integration**: Embedded map, "View on Map", and "Get Directions" links in the detail modal
+
+## Default Restaurants
+
+The app ships with 8 curated Seattle-area restaurants spanning Japanese, Italian, Mexican, French, Indian, Chinese, BBQ, and Mediterranean cuisines — each with descriptions, recommendations, and sample reviews.
+
+## Tech Stack
+
+- **React 19** with **TypeScript**
+- **Create React App** (react-scripts 5.0.1)
+- **localStorage** for client-side persistence
+- **Google Maps Embed API** for location display
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000).
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Builds the app for production to the `build` folder.

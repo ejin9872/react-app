@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
@@ -16,70 +16,52 @@ beforeEach(() => {
   localStorageMock.setItem.mockClear();
 });
 
-test('renders to-do app title', () => {
+afterEach(cleanup);
+
+test('renders app title', () => {
   render(<App />);
-  const titleElement = screen.getByText(/My To-Do List/i);
-  expect(titleElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1, name: /Restaurant Picks/i })).toBeInTheDocument();
 });
 
-test('renders input field and add button', () => {
+test('renders default restaurants', () => {
   render(<App />);
-  const inputElement = screen.getByPlaceholderText(/What needs to be done/i);
-  const addButton = screen.getByText(/Add Task/i);
-  
-  expect(inputElement).toBeInTheDocument();
-  expect(addButton).toBeInTheDocument();
+  expect(screen.getByText('Sakura Sushi')).toBeInTheDocument();
+  expect(screen.getByText('Trattoria Bella')).toBeInTheDocument();
+  expect(screen.getByText('El Fuego Cantina')).toBeInTheDocument();
 });
 
-test('can add a new todo', async () => {
+test('can toggle favorite on a restaurant', async () => {
   render(<App />);
-  
-  const inputElement = screen.getByPlaceholderText(/What needs to be done/i);
-  const addButton = screen.getByText(/Add Task/i);
-  
-  await userEvent.type(inputElement, 'Test todo item');
-  await userEvent.click(addButton);
-  
-  expect(screen.getByText('Test todo item')).toBeInTheDocument();
+  const favButtons = screen.getAllByTitle('Add to favorites');
+  await userEvent.click(favButtons[0]);
+  expect(screen.getByTitle('Remove from favorites')).toBeInTheDocument();
 });
 
-test('can toggle todo completion', async () => {
+test('can mark a restaurant as visited', async () => {
   render(<App />);
-  
-  // Add a todo first
-  const inputElement = screen.getByPlaceholderText(/What needs to be done/i);
-  await userEvent.type(inputElement, 'Test todo item');
-  await userEvent.click(screen.getByText(/Add Task/i));
-  
-  // Toggle completion
-  const checkbox = screen.getByRole('checkbox');
-  await userEvent.click(checkbox);
-  
-  expect(checkbox).toBeChecked();
+  const visitButtons = screen.getAllByTitle('Mark as visited');
+  await userEvent.click(visitButtons[0]);
+  expect(screen.getAllByTitle('Mark as not visited').length).toBeGreaterThan(0);
 });
 
-test('can delete a todo', async () => {
+test('can search restaurants by name', async () => {
   render(<App />);
-  
-  // Add a todo first
-  const inputElement = screen.getByPlaceholderText(/What needs to be done/i);
-  await userEvent.type(inputElement, 'Test todo item');
-  await userEvent.click(screen.getByText(/Add Task/i));
-  
-  // Delete the todo
-  const deleteButton = screen.getByText(/Delete/i);
-  await userEvent.click(deleteButton);
-  
-  expect(screen.queryByText('Test todo item')).not.toBeInTheDocument();
+  expect(screen.getByText('Sakura Sushi')).toBeInTheDocument();
+  const searchInput = screen.getByPlaceholderText(/Search/i);
+  await userEvent.type(searchInput, 'Sakura');
+  expect(screen.getByText('Sakura Sushi')).toBeInTheDocument();
+  expect(screen.queryByText('Trattoria Bella')).not.toBeInTheDocument();
 });
 
-test('shows correct task count', async () => {
+test('can remove a restaurant', async () => {
   render(<App />);
-  
-  // Add a todo
-  const inputElement = screen.getByPlaceholderText(/What needs to be done/i);
-  await userEvent.type(inputElement, 'Test todo item');
-  await userEvent.click(screen.getByText(/Add Task/i));
-  
-  expect(screen.getByText(/1 task remaining/i)).toBeInTheDocument();
+  expect(screen.getByText('Sakura Sushi')).toBeInTheDocument();
+  const removeButtons = screen.getAllByTitle('Remove restaurant');
+  await userEvent.click(removeButtons[0]);
+  expect(screen.queryByText('Sakura Sushi')).not.toBeInTheDocument();
+});
+
+test('shows restaurants left to try count', () => {
+  render(<App />);
+  expect(screen.getByText(/restaurants left to try/i)).toBeInTheDocument();
 });
